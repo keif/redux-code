@@ -3,36 +3,34 @@ import { Field, reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
 import { createStream } from '../../actions'
 
+const renderError = ({error, touched}) => {
+  if (error && touched) {
+    return (
+      <div className="ui error message">
+        <div className="header">{error}</div>
+      </div>
+    )
+  }
+}
+
+const renderInput = (props) => {
+  const { input, label, meta } = props
+  const className = `field ${meta.error && meta.touched ? 'error' : ''}`
+
+  return (
+    <div className={className}>
+      <label>{label}</label>
+      <input {...input} autoComplete='off' type="text" />
+      {renderError(meta)}
+    </div>
+  )
+}
+
 const StreamCreate = (props) => {
   const { handleSubmit, createStream } = props
-  const [title, setTitle] = useState('')
-  const [description, setDescription] = useState('')
-
 
   const onSubmit = (formValues) => {
     createStream(formValues)
-  }
-
-  const renderError = ({error, touched}) => {
-    if (error && touched) {
-      return (
-        <div className="ui error message">
-          <div className="header">{error}</div>
-        </div>
-      )
-    }
-  }
-
-  const renderInput = ({ input, label, meta, onChange, value }) => {
-    const className = `field ${meta.error && meta.touched ? 'error' : ''}`
-
-    return (
-      <div className={className}>
-        <label>{label}</label>
-        <input {...input} autoComplete='off' onChange={onChange} value={value}/>
-        {renderError(meta)}
-      </div>
-    )
   }
 
   return (
@@ -41,15 +39,11 @@ const StreamCreate = (props) => {
         component={renderInput}
         label="Enter Title"
         name="title"
-        onChange={(event) => setTitle(event.target.value)}
-        value={title}
       />
       <Field
         component={renderInput}
         label="Enter Description"
         name="description"
-        onChange={(event) => setDescription(event.target.value)}
-        value={description}
       />
       <button className="ui button primary">Submit</button>
     </form>
