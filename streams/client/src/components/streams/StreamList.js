@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux';
 import { fetchStreams } from '../../actions';
+import { Link } from 'react-router-dom'
 import { Stream } from 'stream';
 
 const StreamList = (props) => {
-  const { fetchStreams, streams, currentUserId } = props
+  const { fetchStreams, isSignedIn, streams, currentUserId } = props
 
   const renderAdmin = (stream) => {
     if (stream.userId === currentUserId) {
@@ -16,6 +17,16 @@ const StreamList = (props) => {
           <button className="ui button negative">
             Delete
           </button>
+        </div>
+      )
+    }
+  }
+
+  const renderCreate = () => {
+    if (isSignedIn) {
+      return (
+        <div style={{textAlign: 'right'}}>
+          <Link to="/streams/new" className="ui button primary">Create Stream</Link>
         </div>
       )
     }
@@ -48,6 +59,7 @@ const StreamList = (props) => {
       <div className="ui celled list">
         {renderList()}
       </div>
+      {renderCreate()}
     </>
   )
 }
@@ -56,8 +68,9 @@ const mapStateToProps = (state) => {
   const { auth, streams } = state
 
   return {
-    streams: Object.values(streams),
-    currentUserId: auth.userId
+    currentUserId: auth.userId,
+    isSignedIn: auth.isSignedIn,
+    streams: Object.values(streams)
   }
 }
 export default connect(mapStateToProps, { fetchStreams })(StreamList)
