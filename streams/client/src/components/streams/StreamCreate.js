@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
 import { createStream } from '../../actions'
 
 const StreamCreate = (props) => {
   const { handleSubmit, createStream } = props
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
+
 
   const onSubmit = (formValues) => {
     createStream(formValues)
@@ -20,13 +23,13 @@ const StreamCreate = (props) => {
     }
   }
 
-  const renderInput = ({ input, label, meta }) => {
+  const renderInput = ({ input, label, meta, onChange, value }) => {
     const className = `field ${meta.error && meta.touched ? 'error' : ''}`
 
     return (
       <div className={className}>
         <label>{label}</label>
-        <input {...input} autoComplete='off' />
+        <input {...input} autoComplete='off' onChange={onChange} value={value}/>
         {renderError(meta)}
       </div>
     )
@@ -34,8 +37,20 @@ const StreamCreate = (props) => {
 
   return (
     <form className="ui form error" onSubmit={handleSubmit(onSubmit)}>
-      <Field name="title" component={renderInput} label="Enter Title"/>
-      <Field name="description" component={renderInput} label="Enter Description"/>
+      <Field
+        component={renderInput}
+        label="Enter Title"
+        name="title"
+        onChange={(event) => setTitle(event.target.value)}
+        value={title}
+      />
+      <Field
+        component={renderInput}
+        label="Enter Description"
+        name="description"
+        onChange={(event) => setDescription(event.target.value)}
+        value={description}
+      />
       <button className="ui button primary">Submit</button>
     </form>
   )
