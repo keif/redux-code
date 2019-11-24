@@ -6,10 +6,34 @@ import flv from 'flv.js'
 const StreamShow = (props) => {
   const { fetchStream, match, stream } = props
   const videoRef = useRef()
+  let player = null
+
+  const buildPlayer = () => {
+    const { id } = match.params
+
+    if (player || !stream) {
+      return
+    }
+
+    if (stream && flv.isSupported()) {
+      player = flv.createPlayer({
+          type: 'flv',
+          url: `http://localhost:8000/live/${id}.flv`
+      })
+      player.attachMediaElement(videoRef.current)
+      player.load()
+    }
+  }
 
   useEffect(() => {
-    fetchStream(match.params.id)
+    const { id } = match.params
+    fetchStream(id)
+    buildPlayer()
   }, [match])
+
+  useEffect(() => {
+    buildPlayer()
+  }, [match, stream])
 
   if (!stream) {
     return (
