@@ -1,12 +1,13 @@
 import React, { useContext } from 'react'
-import LanguageContext from '../contexts/LanguageContext'
+import { LanguageConsumer } from '../contexts/LanguageContext'
 
 const Button = (props) => {
-  const language = useContext(LanguageContext)
-  const text = language === 'english' ? 'Submit' : 'Voorleggen'
-
   return (
-    <button className="ui button primary">{text}</button>
+    <button className="ui button primary">
+      <LanguageConsumer>
+        {(value) => value === 'english' ? 'Submit' : 'Voorleggen'}
+      </LanguageConsumer>
+    </button>
   )
 }
 
