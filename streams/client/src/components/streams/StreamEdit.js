@@ -20,11 +20,12 @@ const StreamEdit = (props) => {
     )
   }
 
+  const { title, description } = stream
   return (
     <>
       <h3>Edit a Stream</h3>
       <StreamForm
-        initialValues={stream}
+        initialValues={{ title, description }}
         onSubmit={onSubmit}
       />
     </>
