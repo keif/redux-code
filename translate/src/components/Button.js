@@ -15,10 +15,10 @@ const Button = (props) => {
     )
   }
 
-  const renderSubmit = (value) => value === 'english' ? 'Submit' : 'Voorleggen'
+  const renderSubmit = ({ language }) => language === 'english' ? 'Submit' : 'Voorleggen'
   return (
     <ColorConsumer>
-    {renderButton}
+      {renderButton}
     </ColorConsumer>
   )
 }

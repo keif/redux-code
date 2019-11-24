@@ -13,7 +13,7 @@ export const LanguageStore = (props) => {
   const onLanguageChange = (language) => setLanguage(language)
 
   return (
-    <LanguageProvider value={{ language, onLanguageChange }}>
+    <LanguageProvider value={{ language, onLanguageChange: onLanguageChange }}>
       {children}
     </LanguageProvider>
   )

@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import LanguageContext from '../contexts/LanguageContext';
 
 const LanguageSelector = (props) => {
-  const { onLanguageChange } = props
+  const { onLanguageChange } = useContext(LanguageContext)
 
   return (
     <>

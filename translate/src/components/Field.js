@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import LanguageContext from '../contexts/LanguageContext'
 
 const Field = (props) => {
-  const language = useContext(LanguageContext)
+  const { language } = useContext(LanguageContext)
   const text = language === 'english' ? 'Name' : 'Naam'
 
   return (
