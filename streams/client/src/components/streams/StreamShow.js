@@ -33,6 +33,12 @@ const StreamShow = (props) => {
 
   useEffect(() => {
     buildPlayer()
+
+    return function cleanUp () {
+      if (player) {
+        player.destroy()
+      }
+    }
   }, [match, stream])
 
   if (!stream) {
