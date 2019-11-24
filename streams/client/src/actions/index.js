@@ -38,6 +38,8 @@ export const editStream = (id, formValues) => async (dispatch) => {
     type: EDIT_STREAM,
     payload: response.data
   })
+
+  history.push('/')
 }
 
 export const fetchStream = (id) => async (dispatch) => {

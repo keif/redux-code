@@ -7,7 +7,7 @@ const StreamEdit = (props) => {
   const { editStream, fetchStream, match, stream } = props
 
   const onSubmit = (formValues) => {
-    console.log(formValues)
+    editStream(match.params.id, formValues)
   }
 
   useEffect(() => {
