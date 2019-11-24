@@ -3,9 +3,10 @@ import LanguageContext from '../contexts/LanguageContext'
 
 const Button = (props) => {
   const language = useContext(LanguageContext)
-  console.log('language:', language)
+  const text = language === 'english' ? 'Submit' : 'Voorleggen'
+
   return (
-    <button className="ui button primary">Submit</button>
+    <button className="ui button primary">{text}</button>
   )
 }
 
