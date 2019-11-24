@@ -1,13 +1,25 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { LanguageConsumer } from '../contexts/LanguageContext'
+import { ColorConsumer } from '../contexts/ColorContext'
 
 const Button = (props) => {
+  const renderButton = (color) => {
+    const buttonColor = color === 'red' ? 'negative' : 'primary'
+
+    return (
+      <button className={`ui button ${buttonColor}`}>
+        <LanguageConsumer>
+          {renderSubmit}
+        </LanguageConsumer>
+      </button>
+    )
+  }
+
+  const renderSubmit = (value) => value === 'english' ? 'Submit' : 'Voorleggen'
   return (
-    <button className="ui button primary">
-      <LanguageConsumer>
-        {(value) => value === 'english' ? 'Submit' : 'Voorleggen'}
-      </LanguageConsumer>
-    </button>
+    <ColorConsumer>
+    {renderButton}
+    </ColorConsumer>
   )
 }
 
