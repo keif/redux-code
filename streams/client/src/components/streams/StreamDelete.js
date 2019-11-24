@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { fetchStream } from '../../actions/index';
 
 const StreamDelete = (props) => {
-  const { fetchStream, match } = props
+  const { fetchStream, match, stream } = props
 
   const renderActions = () => {
     return (
@@ -16,21 +16,34 @@ const StreamDelete = (props) => {
     )
   }
   
+  const renderContent = () => {
+    if (!stream) {
+      return `Are you sure you want to delete this stream?`
+    }
+
+    return `Are you sure you want to delete the stream with title: "${stream.title}"?`
+  }
+
   useEffect(() => {
     fetchStream(match.params.id)
   }, [])
 
   return (
-    <>
-      StreamDelete
-      <Modal
-        actions={renderActions()}
-        content={'Are you sure you want to delete this stream?'}
-        onDismiss={() => history.push('/')}
-        title={'Delete Stream'}
-      />
-    </>
+    <Modal
+      actions={renderActions()}
+      content={renderContent()}
+      onDismiss={() => history.push('/')}
+      title={`Delete Stream`}
+    />
   )
 }
 
-export default connect(null, { fetchStream })(StreamDelete)
+const mapStateToProps = (state, ownProps) => {
+  const { streams } = state
+  const { match } = ownProps
+
+  return {
+    stream: streams[match.params.id]
+  }
+}
+export default connect(mapStateToProps, { fetchStream })(StreamDelete)

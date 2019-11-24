@@ -35,6 +35,7 @@ const StreamEdit = (props) => {
 const mapStateToProps = (state, ownProps) => {
   const { streams } = state
   const { match } = ownProps
+
   return {
     stream: streams[match.params.id]
   }
