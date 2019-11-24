@@ -10,16 +10,16 @@ const App = (props) => {
   }
 
   return (
-    <LanguageProvider value={language}>
-      <div className="ui container">
-        <div>
-          Select a language:
-          <i className="flag us" onClick={() => onLanguageChange('english')}/>
-          <i className="flag nl" onClick={() => onLanguageChange('dutch')}/>
-        </div>
-        <UserCreate />
+    <div className="ui container">
+      <div>
+        Select a language:
+        <i className="flag us" onClick={() => onLanguageChange('english')}/>
+        <i className="flag nl" onClick={() => onLanguageChange('dutch')}/>
       </div>
-    </LanguageProvider>
+      <LanguageProvider value={language}>
+        <UserCreate />
+      </LanguageProvider>
+    </div>
   )
 }
 
